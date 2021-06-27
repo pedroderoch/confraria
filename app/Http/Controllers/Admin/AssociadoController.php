@@ -20,15 +20,17 @@ class AssociadoController extends Controller
     }
 
     public function adicionar(){
+
     	return view('admin.associados.adicionar');
     }
 
     public function teste(){
+
         return view('admin.associados.teste');
     }
 
-
     public function salvar(Request $req){
+        
         $dados = $req->all();
 
         Associado::create($dados);
@@ -36,34 +38,25 @@ class AssociadoController extends Controller
         return redirect()->route('admin.associados');
     }
 
-    public function editar($id)
-    {
+    public function editar($id){
+
       $registro = Associado::find($id);
+
       return view('admin.associados.editar',compact('registro'));
     }
-    public function atualizar(Request $req, $id)
-    {
+
+    public function atualizar(Request $req, $id){
+
       $dados = $req->all();
-
-      // if(isset($dados['publicado'])){
-      //   $dados['publicado'] = 'sim';
-      // }else{
-      //   $dados['publicado'] = 'nao';
-      // }
-
-      // if($req->hasFile('imagem')){
-      //   $imagem = $req->file('imagem');
-      //   $num = rand(1111,9999);
-      //   $dir = "img/cursos/";
-      //   $ex = $imagem->guessClientExtension();
-      //   $nomeImagem = "imagem_".$num.".".$ex;
-      //   $imagem->move($dir,$nomeImagem);
-      //   $dados['imagem'] = $dir."/".$nomeImagem;
-      // }
 
       Associado::find($id)->update($dados);
 
       return redirect()->route('admin.associados');
+    }
 
+    public function deletar($id){
+
+      Associado::find($id)->delete();
+      return redirect()->route('admin.associados');
     }
 }
